@@ -979,6 +979,13 @@ public class GHRepository extends GHObject {
 		}
 		return m;
 	}
+	
+    public GHContent getBlobContent(String sha) throws IOException {
+        Requester requester = root.retrieve();
+        String target = getApiTailUrl("git/blobs/" + sha);
+
+        return requester.to(target, GHContent.class).wrap(this);
+    }
 
     public GHContent getFileContent(String path) throws IOException {
         return getFileContent(path, null);
